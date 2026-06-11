@@ -1,0 +1,372 @@
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
+
+-- tab-extend
+vim.keymap.set("n", "<leader>tl", "<cmd>TabList<CR>", { desc = "Tabs: List and switch" })
+vim.keymap.set("n", "<leader>tn", "<cmd>TabRename<CR>", { desc = "Tabs: Rename current" })
+
+-- buffer navigation
+vim.keymap.set("n", "<A-1>", "<cmd>LualineBuffersJump 1<CR>", { desc = "Buffer 1" })
+vim.keymap.set("n", "<A-2>", "<cmd>LualineBuffersJump 2<CR>", { desc = "Buffer 2" })
+vim.keymap.set("n", "<A-3>", "<cmd>LualineBuffersJump 3<CR>", { desc = "Buffer 3" })
+vim.keymap.set("n", "<A-4>", "<cmd>LualineBuffersJump 4<CR>", { desc = "Buffer 4" })
+vim.keymap.set("n", "<A-5>", "<cmd>LualineBuffersJump 5<CR>", { desc = "Buffer 5" })
+vim.keymap.set("n", "<A-6>", "<cmd>LualineBuffersJump 6<CR>", { desc = "Buffer 6" })
+vim.keymap.set("n", "<A-7>", "<cmd>LualineBuffersJump 7<CR>", { desc = "Buffer 7" })
+vim.keymap.set("n", "<A-8>", "<cmd>LualineBuffersJump 8<CR>", { desc = "Buffer 8" })
+vim.keymap.set("n", "<A-9>", "<cmd>LualineBuffersJump 9<CR>", { desc = "Buffer 9" })
+vim.keymap.set("n", "<A-0>", "<cmd>LualineBuffersJump $<CR>", { desc = "Last buffer" })
+vim.keymap.set("n", "<leader>bp", "<cmd>bprevious<CR>", { desc = "Buffer: Previous" })
+vim.keymap.set("n", "<leader>bn", "<cmd>bnext<CR>", { desc = "Buffer: Next" })
+vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Buffer: Delete" })
+
+-- vim.keymap.set("n", "<leader>td", function()
+--   require("custom_plugins.todo").open_today_todo_popup()
+-- end, { desc = "Open Today's Todos" })
+
+-- vim.keymap.set("n", "<leader>tl", function()
+--   require("telescope.builtin").find_files({
+--     prompt_title = "Todo Files",
+--     cwd = require("custom_plugins.todo").tododir,
+--     hidden = true, -- Show hidden files
+--     find_command = { "rg", "--files", "--hidden", "--glob", "!*.git" }, -- Exclude .git directory
+--   })
+-- end, { desc = "Open Todo Files" })
+
+vim.keymap.del("n", "<leader>.")
+-- vim.keymap.del("n", "<leader>,")
+-- vim.keymap.del("n", "<leader>`")
+
+-- { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
+vim.keymap.set("n", "<leader>sA", function() end)
+
+-- 在可视模式下使用 J 和 K 上下移动选中的代码块
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected block down", silent = true })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected block up", silent = true })
+
+-- Move up and down half a page and center the cursor
+vim.keymap.set("n", "zk", "zt", { desc = "Top this line" })
+vim.keymap.set("n", "zq", "zb", { desc = "Bottom this line" })
+
+-- Resize window using <Alt+Arrow> keys
+vim.keymap.set("n", "<M-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+vim.keymap.set("n", "<M-Down>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+vim.keymap.set("n", "<M-Up>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
+vim.keymap.set("n", "<M-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+
+-- Move to window using <ctrl> arrow keys
+vim.keymap.set("n", "<C-Up>", "<C-w>k", { desc = "Go to Upper Window", remap = true })
+vim.keymap.set("n", "<C-Down>", "<C-w>j", { desc = "Go to Lower Window", remap = true })
+vim.keymap.set("n", "<C-Left>", "<C-w>h", { desc = "Go to Left Window", remap = true })
+vim.keymap.set("n", "<C-Right>", "<C-w>l", { desc = "Go to Right Window", remap = true })
+
+-- hop: <leader>w = HopWord, <leader>l = HopLine
+-- flash: <leader>j* group (treesitter select, remote, etc.)
+vim.keymap.del("n", "<leader>wd")
+vim.keymap.del("n", "<leader>wm")
+vim.keymap.set("n", "<leader>w", "<cmd>HopWord<CR>", { desc = "Hop to a word" })
+vim.keymap.set("n", "<leader>l", "<cmd>HopLine<CR>", { desc = "Hop to a line" })
+
+-- Expand references preview with lspsaga
+vim.keymap.set("n", "gh", "<cmd>Lspsaga finder ref<CR>", { desc = "Expand References Preview" })
+
+-- Expand definition preview with lspsaga
+vim.keymap.set("n", "gy", "<cmd>Lspsaga finder tyd<CR>", { desc = "Expand Definition Preview" })
+
+vim.keymap.set("n", "gm", "<cmd>Lspsaga finder imp<CR>", { desc = "Expand Implementation Preview" })
+
+-- Split window horizontally and open terminal
+vim.keymap.set("n", "<C-w>t", "<cmd>vsplit | terminal<cr>", { desc = "Split window horizontally and open terminal" })
+
+vim.keymap.set("v", "<leader>cx", function()
+  vim.cmd("'<,'>yank +")
+  vim.fn.system("codesnap --from-clipboard -o clipboard")
+end, { desc = "Yank and codesnap" })
+
+-- Mapping '<Leader>cc' to toggle BaleiaColorize
+vim.keymap.set("n", "<Leader>cc", "<cmd>BaleiaColorize<CR>", { desc = "Toggle BaleiaColorize" })
+
+-- Mapping Tab to jump to the matching bracket
+vim.api.nvim_set_keymap("n", "<Tab>", "%", { noremap = true, silent = true })
+
+-- Increase font size
+vim.keymap.set("n", "<C-=>", function()
+  local size = vim.o.guifont:match("%d+")
+  vim.o.guifont = vim.o.guifont:gsub("%d+", size + 1)
+end, { desc = "Increase font size" })
+
+-- Decrease font size
+vim.keymap.set("n", "<C-->", function()
+  local size = vim.o.guifont:match("%d+")
+  vim.o.guifont = vim.o.guifont:gsub("%d+", size - 1)
+end, { desc = "Decrease font size" })
+
+vim.keymap.set("x", "<leader>cwo", 'c`<C-r>"`<Esc>', {
+  noremap = true,
+  silent = true,
+  desc = "Wrap selection with ``",
+})
+
+vim.keymap.set("x", "<leader>cwb", 'c**<C-r>"**<Esc>', {
+  noremap = true,
+  silent = true,
+  desc = "Wrap selection with ** **",
+})
+
+vim.keymap.set("x", "<leader>cwc", 'c\\code{<C-r>"}<Esc>', {
+  noremap = true,
+  silent = true,
+  desc = "Wrap selection with \\code{}",
+})
+
+vim.keymap.set("x", "<leader>cwC", 'c\\tcode{<C-r>"}<Esc>', {
+  noremap = true,
+  silent = true,
+  desc = "Wrap selection with \\tcode{}",
+})
+
+vim.keymap.set("x", "<leader>cwb", 'c\\textbf{<C-r>"}<Esc>', {
+  noremap = true,
+  silent = true,
+  desc = "Wrap selection with \\textbf{}",
+})
+
+vim.keymap.set("x", "<leader>cwt", 'c\\texttt{<C-r>"}<Esc>', {
+  noremap = true,
+  silent = true,
+  desc = "Wrap selection with \\texttt{}",
+})
+-- Lspsaga outline
+vim.keymap.set("n", "<leader>co", "<cmd>Lspsaga outline<CR>", { desc = "Open Lspsaga Outline" })
+
+local function yank_with_context()
+  -- 2. 从寄存器中提取 yank 的内容
+  local selection = vim.fn.getreg('"')
+
+  -- 从 '< 和 '> 标记中获取行号，这些标记是由 yank 操作设置的
+  local start_line = vim.fn.line("'<")
+  local end_line = vim.fn.line("'>")
+
+  -- 3. 处理 content
+  -- 获取缓冲区元数据
+  local filename = vim.fn.expand("%:t")
+  if filename == "" then
+    filename = "untitled"
+  end
+
+  local lang = vim.bo.filetype
+  if lang == "" then
+    lang = "text"
+  end
+
+  -- 格式化行号范围字符串
+  local line_range
+  if start_line == end_line then
+    line_range = tostring(start_line)
+  else
+    line_range = string.format("%d-%d", start_line, end_line)
+  end
+
+  -- 为选中区域的每一行添加行号
+  local lines = vim.fn.split(selection, "\n")
+
+  if #lines > 0 and lines[#lines] == "" then
+    table.remove(lines)
+  end
+
+  local numbered_lines = {}
+  local max_line_width = #tostring(end_line)
+  for i, line in ipairs(lines) do
+    local line_num = start_line + i - 1
+    local formatted_line = string.format("%" .. max_line_width .. "d|  %s", line_num, line)
+    table.insert(numbered_lines, formatted_line)
+  end
+  local numbered_selection = table.concat(numbered_lines, "\n")
+
+  -- 构建包含上下文的最终内容
+  local header = string.format("/// %s:%s", filename, line_range)
+  local content = string.format("```%s\n %s\n%s\n```", lang, header, numbered_selection)
+
+  -- 4. 写回寄存器
+  vim.fn.setreg("+", content)
+  vim.fn.setreg("*", content)
+  vim.fn.setreg('"', content)
+  vim.notify("Copied to clipboard with context", vim.log.levels.INFO, { title = "Code Yank" })
+end
+
+_G.yank_with_context_for_mapping = yank_with_context
+
+vim.keymap.set("x", "<leader>cy", "y<Cmd>lua _G.yank_with_context_for_mapping()<CR>", {
+  noremap = true,
+  silent = true,
+  desc = "Yank code with file, language, and line number context",
+})
+
+-- Code ignore comment
+vim.keymap.set("x", "<leader>cd", "di //...<Esc>", { desc = "Comment selection with //" })
+
+-- Copy current file path to clipboard
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>bc",
+  ':let @+=expand("%:p")<CR>',
+  { noremap = true, silent = true, desc = "Copy current file path to clipboard" }
+)
+
+local function clear_markdown_formatting()
+  local start_line = vim.fn.line("'<")
+  local end_line = vim.fn.line("'>")
+  local start_col = vim.fn.col("'<")
+  local end_col = vim.fn.col("'>")
+
+  local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+
+  local new_lines = {}
+  for i, line in ipairs(lines) do
+    local modified_line = line:gsub("`", ""):gsub("%*", "")
+    table.insert(new_lines, modified_line)
+  end
+
+  vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, new_lines)
+
+  -- Re-select the changed text to keep visual mode active
+  vim.cmd("normal! gv")
+end
+
+vim.keymap.set("x", "<leader>cr", clear_markdown_formatting, {
+  noremap = true,
+  silent = true,
+  desc = "Clear Markdown inline code and bold formatting",
+})
+
+-- vim.keymap.del({ "n", "v" }, "<leader>n")
+
+local glance = require("custom_plugins.auditscope.glance")
+
+vim.keymap.set("n", "<leader>ot", glance.toggle_tracking, { desc = "Audit: Toggle Glance Tracking" })
+vim.keymap.set("n", "<leader>ob", glance.toggle_bars, { desc = "Audit: Toggle Glance Bars" })
+vim.keymap.set("n", "<leader>of", function()
+  glance.flush()
+  glance.show_bars()
+end, { desc = "Audit: Flush & Show Glance" })
+vim.keymap.set("n", "<leader>os", glance.summary, { desc = "Audit: Repo Glance Summary" })
+vim.keymap.set("n", "<leader>oc", "<cmd>AuditGlanceClear<CR>", { desc = "Audit: Clear Glance (file)" })
+vim.keymap.set("n", "<leader>od", glance.debug, { desc = "Audit: Debug Panel" })
+
+local function render_markdown_to_html()
+  local buf = vim.api.nvim_get_current_buf()
+  -- local file_path = vim.api.nvim_buf_get_name(buf)
+  local tmp_md = os.tmpname() .. ".md"
+  local tmp_html = os.tmpname() .. ".html"
+
+  -- Write current buffer content to a temporary markdown file
+  local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+  local working_dir = vim.fn.expand("%:p:h")
+  local f = io.open(tmp_md, "w")
+  if f then
+    f:write(table.concat(lines, "\n"))
+    f:close()
+  end
+
+  local working_dir = vim.fn.expand("%:p:h")
+  local solidity_syntax = vim.fn.expand("~/.config/nvim/syntax/solidity.xml")
+
+  local pandoc_args = {
+    "pandoc",
+    "-f",
+    "gfm",
+    "--mathjax",
+    "--syntax-definition=" .. vim.fn.shellescape(solidity_syntax),
+    "--highlight-style=kate",
+    "--standalone",
+    "--embed-resources",
+    "--resource-path=" .. vim.fn.shellescape(working_dir .. ":."),
+    "-s",
+    vim.fn.shellescape(tmp_md),
+    "-V",
+    "header-includes='<style>body { max-width: 50em; margin: auto; padding: 2em; }</style>'",
+    "-o",
+    vim.fn.shellescape(tmp_html),
+  }
+
+  local cmd = table.concat(pandoc_args, " ") .. " && open " .. vim.fn.shellescape(tmp_html)
+
+  vim.fn.jobstart(cmd, {
+    on_exit = function(_, code)
+      if code ~= 0 then
+        vim.notify("Markdown rendering failed", vim.log.levels.ERROR)
+      end
+      -- Clean up the temporary markdown file; HTML remains for the browser
+      os.remove(tmp_md)
+    end,
+  })
+end
+
+vim.api.nvim_create_user_command(
+  "RenderMarkdown",
+  render_markdown_to_html,
+  { desc = "Render Markdown to HTML and open" }
+)
+
+local term_buf = nil
+vim.keymap.set("n", "<leader>tc", function()
+  vim.cmd("vsplit")
+
+  -- Check if buffer exists and is valid
+  if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+    vim.api.nvim_set_current_buf(term_buf)
+  else
+    -- Create new terminal buffer
+    vim.cmd("terminal")
+    term_buf = vim.api.nvim_get_current_buf()
+    -- Hide from buffer line/tabline
+    vim.api.nvim_set_option_value("buflisted", false, { buf = term_buf })
+  end
+end, { desc = "Open persistent Terminal in vertical split" })
+
+vim.keymap.set({ "n", "v" }, "gs", function()
+  local gs = require("gitsigns")
+
+  if vim.fn.mode():match("[vV]") then
+    local start_line = vim.fn.line("v")
+    local end_line = vim.fn.line(".")
+    if start_line > end_line then
+      start_line, end_line = end_line, start_line
+    end
+    gs.stage_hunk({ start_line, end_line })
+  else
+    local lnum = vim.api.nvim_win_get_cursor(0)[1]
+    gs.stage_hunk({ lnum, lnum })
+  end
+end, { desc = "Git stage current line or selection" })
+
+vim.g.gui_font_size = vim.g.gui_font_default_size
+
+RefreshGuiFont = function()
+  vim.opt.guifont = string.format("%s:h%s", vim.g.gui_font_face, vim.g.gui_font_size)
+end
+
+ResizeGuiFont = function(delta)
+  vim.g.gui_font_size = vim.g.gui_font_size + delta
+  RefreshGuiFont()
+end
+
+ResetGuiFont = function()
+  vim.g.gui_font_size = vim.g.gui_font_default_size
+  RefreshGuiFont()
+end
+
+-- Call function on startup to set default value
+ResetGuiFont()
+
+-- Keymaps
+
+local opts = { noremap = true, silent = true }
+
+vim.keymap.set({ "n", "i" }, "<C-+>", function()
+  ResizeGuiFont(1)
+end, opts)
+vim.keymap.set({ "n", "i" }, "<C-->", function()
+  ResizeGuiFont(-1)
+end, opts)

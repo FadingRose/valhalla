@@ -1,0 +1,15 @@
+*.log
+data/
+node_modules/
+.tests/
+.luarc.json
+.neoconf.json
+.lazy-lock.json
+fish/fish_variables.*
+fish/fish_variables[!]
+opencode/bun.lock
+opencode/package-lock.json
+opencode/package.json
+opencode/node_modules/
+opencode/agent/
+opencode/skills/
