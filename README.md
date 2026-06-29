@@ -11,6 +11,7 @@ valhalla/
 ├── cmd/                             ← CLI commands (cobra)
 ├── internal/                        ← manifest, linker, syncer, secretage
 ├── nvim/                            # Neovim config (LazyVim + custom plugins)
+├── vim/                             # Vim 9 config (ported from nvim: vimrc + alter-avenger colorscheme)
 ├── opencode/                        # OpenCode themes
 ├── kitty/                           # Kitty terminal config
 ├── fish/                            # Fish shell config
@@ -180,13 +181,22 @@ bash scripts/sync.sh        # same as `valhalla sync`
 
 ## Theme integration
 
-The alter-avenger palette is defined in three places, kept in sync:
+The alter-avenger palette has **one master definition** and is consumed
+in several places, all kept in sync:
 
+**Master:**
 | File | Purpose |
 |------|---------|
-| `nvim/colors/alter-avenger.lua` | Nvim colorscheme + exports `M.palette`, `M.character`, `M.neural_scramble()` |
+| `nvim/colors/alter-avenger.lua` | Source of truth — nvim colorscheme + exports `M.palette` |
+
+**Consumers (read from master):**
+| File | Purpose |
+|------|---------|
+| `vim/colors/alter-avenger.vim` | Vim 9 port (pure `:hi` commands, no nvim APIs) |
 | `opencode/themes/alter-avenger.json` | OpenCode TUI theme |
-| `nvim/lua/plugins/lualine.lua` | Reads palette at runtime |
+| `kitty/current-theme.conf` | Kitty terminal 16-color ANSI theme |
+| `kitty/tab_bar.py` | Kitty custom tab bar (uses palette constants) |
+| `nvim/lua/plugins/lualine.lua` | Reads palette at runtime for lualine theme |
 
 ## Set Fish as default shell
 
