@@ -1,0 +1,159 @@
+" ─── Valhalla vimrc ─────────────────────────────────────────────────────────
+" Ported from nvim config (LazyVim defaults + custom keymaps + autocmds).
+" Target: Vim 9.1+ on macOS.
+" Companion to ~/.config/nvim — kept intentionally lean (no plugin manager).
+
+" ─── Bootstrap ─────────────────────────────────────────────────────────────
+set nocompatible
+filetype plugin indent on
+syntax on
+
+let mapleader = " "
+let maplocalleader = "\\"
+
+" ─── UI / Display ──────────────────────────────────────────────────────────
+set number                       " absolute line numbers
+set relativenumber               " + relative line numbers
+set cursorline                   " highlight current line
+set signcolumn=yes               " always show sign column (no text shift)
+set showmatch                    " flash matching bracket
+set wildmenu                     " better command-line completion
+set wildmode=longest:full,full
+set title                        " terminal title = filename
+set scrolloff=4                  " lines of context above/below cursor
+set sidescrolloff=8              " columns of context
+set linebreak                    " wrap at word boundaries, not mid-word
+set showmode                     " show --INSERT-- (no statusline plugin)
+set ruler                        " show line/col in statusline
+set laststatus=2                 " always show statusline
+set cmdheight=1
+set conceallevel=2               " hide * markup, keep substitutions
+set list                         " show invisible chars
+set listchars=tab:→\ ,trail:·,nbsp:␣,extends:›,precedes:‹
+set fillchars=eob:\              " tidy ~ at end-of-buffer
+if has('termguicolors')
+  set termguicolors              " 24-bit colour (matches nvim)
+endif
+if exists('+pumblend')
+  set pumblend=10                " popup transparency (nvim / vim 9.1+)
+endif
+if exists('+linespace')
+  set linespace=1                " line gap (nvim parity)
+endif
+
+" ─── Search ────────────────────────────────────────────────────────────────
+set ignorecase                   " ignore case in search...
+set smartcase                    " ...unless pattern has uppercase
+set incsearch                    " incremental match preview
+set hlsearch                     " highlight all matches
+if exists('+inccommand')
+  set inccommand=nosplit         " live :substitute preview (nvim-only)
+endif
+
+" ─── Indentation ───────────────────────────────────────────────────────────
+set expandtab                    " spaces instead of tabs
+set tabstop=2                    " tabs render as 2 spaces
+set shiftwidth=2                 " indent step
+set softtabstop=2
+set autoindent
+set smartindent
+set shiftround                   " indent to next multiple of shiftwidth
+
+" ─── Editing ───────────────────────────────────────────────────────────────
+set backspace=indent,eol,start   " backspace through everything
+set hidden                       " switch buffers without saving
+set encoding=utf-8
+set fileencodings=utf-8
+set nobackup nowritebackup noswapfile
+set undofile                     " persistent undo
+set undolevels=10000
+set autoread                     " reload files changed outside vim
+set updatetime=200               " CursorHold trigger
+set timeoutlen=300               " fast which-key-style timeout
+set virtualedit=block            " free cursor in visual-block
+set wrap!                        " no soft wrap
+set splitbelow splitright        " new window goes below/right
+set confirm                      " prompt to save on :q with changes
+set grepprg=rg\ --vimgrep        " ripgrep if available
+set grepformat=%f:%l:%c:%m
+
+" ─── Clipboard & shell ─────────────────────────────────────────────────────
+if has('clipboard')
+  set clipboard=unnamedplus
+endif
+set clipboard^=unnamed           " fallback to * register too
+
+" ─── Cursor shape (terminfo, same as nvim in kitty) ────────────────────────
+let &t_SI = "\e[5 q"   " INSERT  bar
+let &t_SR = "\e[3 q"   " REPLACE underline
+let &t_EI = "\e[2 q"   " NORMAL  block
+
+" ─── Colorscheme ───────────────────────────────────────────────────────────
+set background=dark
+try
+  colorscheme alter-avenger
+catch
+  " theme not installed yet — silent fallback
+endtry
+
+" ─── Keymaps (ported from nvim/lua/config/keymaps.lua) ─────────────────────
+" Buffer navigation
+nnoremap <silent> <leader>bp :bprevious<CR>
+nnoremap <silent> <leader>bn :bnext<CR>
+nnoremap <silent> <leader>bd :bdelete<CR>
+nnoremap <silent> <leader>bc :let @+=expand("%:p")<CR>   " copy file path
+
+" Move selected block up/down in visual mode
+vnoremap <silent> J :m '>+1<CR>gv=gv
+vnoremap <silent> K :m '<-2<CR>gv=gv
+
+" z-commands that match nvim muscle memory
+nnoremap zk zt
+nnoremap zq zb
+
+" Tab jumps to matching bracket (overrides default <C-i>)
+nnoremap <silent> <Tab> %
+
+" Window resize with <Alt+Arrows>
+nnoremap <silent> <M-Left>  :vertical resize -2<CR>
+nnoremap <silent> <M-Right> :vertical resize +2<CR>
+nnoremap <silent> <M-Down>  :resize +2<CR>
+nnoremap <silent> <M-Up>    :resize -2<CR>
+
+" Window switch with <Ctrl+Arrows>
+nnoremap <C-Up>    <C-w>k
+nnoremap <C-Down>  <C-w>j
+nnoremap <C-Left>  <C-w>h
+nnoremap <C-Right> <C-w>l
+
+" Vertical split + terminal
+nnoremap <silent> <C-w>t :vsplit \| terminal<CR>
+
+" ─── Visual text wrapping helpers (ported from nvim keymaps) ────────────────
+vnoremap <silent> <leader>cwo c``<C-r>"``<Esc>
+vnoremap <silent> <leader>cwb c**<C-r>"**<Esc>
+vnoremap <silent> <leader>cd  di //...<Esc>
+
+" ─── Autocmds (ported from nvim/lua/config/autocmds.lua) ───────────────────
+augroup valhalla
+  autocmd!
+  " Markdown: no spell check (parity with nvim autocmd)
+  autocmd FileType markdown setlocal nospell
+  " Reset cwd to home (parity)
+  autocmd VimEnter * silent! cd ~
+  " Terminal: enter insert mode on focus
+  autocmd BufWinEnter,WinEnter term://* startinsert
+augroup END
+
+" ─── Filetype-specific ─────────────────────────────────────────────────────
+augroup valhalla_ft
+  autocmd!
+  " Go: tab=4 (parity with go.mod ecosystem defaults)
+  autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
+  " Solidity: 4 spaces
+  autocmd FileType solidity setlocal expandtab tabstop=4 shiftwidth=4
+  " Markdown wrap
+  autocmd FileType markdown setlocal wrap linebreak
+augroup END
+
+" ─── End ───────────────────────────────────────────────────────────────────

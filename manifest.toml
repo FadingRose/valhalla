@@ -26,6 +26,14 @@ target = "~/.config/opencode/themes/alter-avenger.json"
 source = "opencode/tui.json"
 target = "~/.config/opencode/tui.json"
 
+[[links]]
+source = "vim/vimrc"
+target = "~/.vimrc"
+
+[[links]]
+source = "vim/colors"
+target = "~/.vim/colors"
+
 # ─── Profiles ───────────────────────────────────────────────────────────────
 # Optional device-specific overrides. Selected via --profile or auto-matched
 # by hostname. Uncomment and adapt as needed.
