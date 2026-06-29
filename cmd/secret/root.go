@@ -28,6 +28,26 @@ var secretCmd = &cobra.Command{
 
 Secrets are stored as individual age-encrypted files keyed by path, e.g.
 "llm/openrouter" lives at secrets/llm/openrouter.age.`,
+	Example: `  # Store a value (will prompt)
+  valhalla secret add wallets/new
+
+  # Pipe a value instead
+  echo "sk-..." | valhalla secret add llm/openrouter --stdin
+
+  # Read a value
+  valhalla secret get llm/openrouter
+
+  # Copy to clipboard (macOS)
+  valhalla secret get wallets/alice --copy
+
+  # List all stored secrets
+  valhalla secret list
+
+  # Render all secrets to ~/.local/share/valhalla/secrets.fish
+  valhalla secret inject
+
+  # Re-encrypt after adding/removing a device
+  valhalla secret reencrypt`,
 }
 
 func init() {

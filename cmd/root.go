@@ -25,6 +25,20 @@ var rootCmd = &cobra.Command{
 
 It replaces scripts/install.sh and scripts/sync.sh with a single binary that
 reads manifest.toml for declarative configuration.`,
+	Example: `  # Apply all config symlinks on a new machine
+  valhalla apply
+
+  # Sync local changes to git
+  valhalla sync
+
+  # Look up a secret value
+  valhalla secret get llm/openrouter
+
+  # Rotate a key, then reload
+  valhalla secret add llm/openrouter
+  valhalla secret inject
+
+  # See full docs: https://github.com/FadingRose/valhalla`,
 	SilenceUsage: true,
 }
 

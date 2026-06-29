@@ -38,6 +38,8 @@ Use --copy to copy to clipboard via pbcopy / xclip / wl-copy instead.`,
 
 func init() {
 	secretGetCmd.Flags().BoolVar(&secretGetCopy, "copy", false, "copy to clipboard instead of printing")
+	// Dynamic completion: `valhalla secret get <TAB>` lists stored secrets.
+	secretGetCmd.ValidArgsFunction = completeSecretPath
 	secretCmd.AddCommand(secretGetCmd)
 }
 

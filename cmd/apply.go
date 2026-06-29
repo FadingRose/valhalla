@@ -19,6 +19,14 @@ links are added on top.
 
 apply is idempotent: running it twice does nothing the second time if the
 links are already correct.`,
+	Example: `  # First-time setup on a new machine
+  valhalla apply
+
+  # Preview without changes
+  valhalla apply --dry-run
+
+  # Use a specific device profile
+  valhalla apply --profile macbook`,
 	Args: cobra.NoArgs,
 	RunE: runApply,
 }

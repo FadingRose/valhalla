@@ -124,6 +124,8 @@ values themselves.
 
 The argument can be a device name or a pubkey prefix.`,
 	Args: cobra.ExactArgs(1),
+	// Dynamic completion: `valhalla devices remove <TAB>` lists names.
+	ValidArgsFunction: completeDeviceName,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		repo, err := resolveRepo()
 		if err != nil {

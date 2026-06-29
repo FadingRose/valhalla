@@ -69,6 +69,8 @@ Supported shells: fish (default), posix, env, json.`,
 func init() {
 	secretInjectCmd.Flags().StringVar(&injectShell, "shell", "",
 		"output format: fish|posix|env|json (default: from manifest or fish)")
+	// Dynamic completion: `valhalla secret inject --shell <TAB>`.
+	secretInjectCmd.RegisterFlagCompletionFunc("shell", completeShellFormat)
 	secretInjectCmd.Flags().StringVar(&injectOutput, "output", "",
 		"override output file path (default: from manifest)")
 	secretInjectCmd.Flags().BoolVar(&injectDryRun, "dry-run", false,

@@ -69,6 +69,8 @@ a secret, you should also remove the corresponding [[secrets.inject]] entry.`,
 func init() {
 	secretRmCmd.Flags().BoolVar(&rmForce, "force", false,
 		"remove even if the path is still referenced in manifest.toml")
+	// Dynamic completion: `valhalla secret rm <TAB>` lists stored secrets.
+	secretRmCmd.ValidArgsFunction = completeSecretPath
 	secretCmd.AddCommand(secretRmCmd)
 }
 

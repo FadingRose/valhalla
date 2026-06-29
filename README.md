@@ -70,13 +70,32 @@ valhalla apply [--dry-run]            # create symlinks from manifest.toml
 valhalla diff                         # show missing/broken symlinks
 valhalla sync [--message MSG]         # commit + pull --rebase + push
 
-valhalla secret init                  # generate age keypair (run once per device)
+valhalla secret init [--name NAME]    # generate age keypair + register device
 valhalla secret add <path> [--stdin]  # encrypt and store a value
 valhalla secret get <path> [--copy]   # decrypt and print / copy to clipboard
 valhalla secret list                  # list all stored paths
 valhalla secret rm <path> [--force]   # remove a secret (manifest-aware)
 valhalla secret inject [--shell fish] # render all secrets to a shell file
+valhalla secret reencrypt             # re-encrypt for current devices
+
+valhalla devices list                 # show all registered devices
+valhalla devices add <pubkey>         # register a new device
+valhalla devices remove <name>        # revoke a device
 ```
+
+### Shell completion
+
+```bash
+valhalla completion install           # install fish completions
+```
+
+Provides `<TAB>` completion for secret paths, device names, and shell formats:
+- `valhalla secret get <TAB>` → lists all stored secrets
+- `valhalla secret rm <TAB>` → lists all stored secrets
+- `valhalla devices remove <TAB>` → lists registered device names
+- `valhalla secret inject --shell <TAB>` → fish|posix|env|json
+
+Restart fish (`exec fish`) after install to activate.
 
 ### Common workflows
 

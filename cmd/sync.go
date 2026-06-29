@@ -18,6 +18,14 @@ var syncCmd = &cobra.Command{
 
 It stages all changes, generates a meaningful commit message from the diff,
 then pulls (rebase) and pushes. Flags allow skipping either side.`,
+	Example: `  # Commit + pull + push (default)
+  valhalla sync
+
+  # With a custom message
+  valhalla sync --message "feat: add new alias"
+
+  # Only commit, skip pull/push
+  valhalla sync --no-pull --no-push`,
 	Args: cobra.NoArgs,
 	RunE: runSync,
 }
