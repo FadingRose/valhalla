@@ -13,3 +13,7 @@ opencode/package.json
 opencode/node_modules/
 opencode/agent/
 opencode/skills/
+.opencode/
+.pi/
+package.json
+package-lock.json
