@@ -41,10 +41,83 @@ target = "~/.config/opencode/tui.json"
 # On `valhalla secret inject`, each entry here is decrypted and written into
 # the file at `output` (as `set -gx VAR value` for fish).
 #
-# Example:
-#
-# [secrets]
-# output = "~/.config/fish/conf.d/00-secrets.fish"
-# [[secrets.inject]]
-# var = "OPENROUTER_API_KEY"
-# path = "llm/openrouter"
+# Var names preserve the original shell variable names so existing scripts
+# that read $OPENROUTER_API_KEY etc. keep working without changes.
+
+[secrets]
+# Note: this path must NOT live inside a valhalla-managed symlink dir.
+# ~/.local/share/valhalla/ is outside the repo, so the generated plaintext
+# file never enters git.
+output = "~/.local/share/valhalla/secrets.fish"
+
+# ── LLM ────────────────────────────────────────────────────────────────────
+[[secrets.inject]]
+var = "OPENROUTER_API_KEY"
+path = "llm/openrouter"
+
+[[secrets.inject]]
+var = "LLM_API_KEY"
+path = "llm/llm-general"
+
+[[secrets.inject]]
+var = "HOUND_API_KEY"
+path = "llm/hound"
+
+[[secrets.inject]]
+var = "DEEPSEEK_API_KEY"
+path = "llm/deepseek"
+
+[[secrets.inject]]
+var = "DASHSCOPE_API_KEY"
+path = "llm/dashscope"
+
+[[secrets.inject]]
+var = "SILICONFLOW_API_KEY"
+path = "llm/siliconflow"
+
+[[secrets.inject]]
+var = "IFLOW_API_KEY"
+path = "llm/iflow"
+
+# ── Wallets ────────────────────────────────────────────────────────────────
+[[secrets.inject]]
+var = "ALICE_PK"
+path = "wallets/alice"
+
+[[secrets.inject]]
+var = "BOB_PK"
+path = "wallets/bob"
+
+[[secrets.inject]]
+var = "DEPLOYER_PK"
+path = "wallets/deployer"
+
+# ── Blockchain infra ───────────────────────────────────────────────────────
+[[secrets.inject]]
+var = "AETHIR_IDC_API_KEY"
+path = "blockchain/aethir"
+
+[[secrets.inject]]
+var = "BLOCKSEC_API_KEY_DS_R1"
+path = "blockchain/blocksec"
+
+[[secrets.inject]]
+var = "ETHERSCAN_API_KEY"
+path = "blockchain/etherscan"
+
+[[secrets.inject]]
+var = "ETHERSCAN_MAINNET_KEY"
+path = "blockchain/etherscan"
+
+[[secrets.inject]]
+var = "INFURA_API_KEY"
+path = "blockchain/infura"
+
+[[secrets.inject]]
+var = "INFURA_KEY"
+path = "blockchain/infura"
+
+# ── Misc ───────────────────────────────────────────────────────────────────
+[[secrets.inject]]
+var = "DIFY_API_KEY"
+path = "misc/dify"
