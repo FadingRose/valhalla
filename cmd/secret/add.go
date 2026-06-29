@@ -117,15 +117,6 @@ func trimTrailingNL(b []byte) []byte {
 	return b
 }
 
-// hostname for tagging recipients.
-func hostname() string {
-	host, _ := os.Hostname()
-	if i := strings.IndexByte(host, '.'); i > 0 {
-		host = host[:i]
-	}
-	return host
-}
-
 // resolveRepo mirrors cmd.resolveRepo without import cycle.
 func resolveRepo() (string, error) {
 	if v := os.Getenv("VALHALLA_REPO"); v != "" {

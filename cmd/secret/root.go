@@ -39,3 +39,9 @@ func init() {
 func Cmd() *cobra.Command {
 	return secretCmd
 }
+
+// DevicesCmd returns the devices subcommand. Exported so the root package
+// can attach it as a top-level command (alongside `secret`).
+func DevicesCmd() *cobra.Command {
+	return devicesCmd
+}

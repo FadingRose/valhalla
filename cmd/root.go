@@ -31,6 +31,7 @@ reads manifest.toml for declarative configuration.`,
 // Execute is the single entry point called from main.
 func Execute() error {
 	rootCmd.AddCommand(secretcmd.Cmd())
+	rootCmd.AddCommand(secretcmd.DevicesCmd())
 	return rootCmd.Execute()
 }
 
