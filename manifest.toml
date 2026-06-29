@@ -1,0 +1,50 @@
+# valhalla manifest
+# This file drives `valhalla apply`, `valhalla diff`, and `valhalla secret inject`.
+# See README.md for the full reference.
+
+# ─── Links ──────────────────────────────────────────────────────────────────
+# Each [[links]] entry creates one symlink: source (relative to repo) -> target.
+# `target` supports ~ expansion.
+
+[[links]]
+source = "nvim"
+target = "~/.config/nvim"
+
+[[links]]
+source = "kitty"
+target = "~/.config/kitty"
+
+[[links]]
+source = "fish"
+target = "~/.config/fish"
+
+[[links]]
+source = "opencode/themes/alter-avenger.json"
+target = "~/.config/opencode/themes/alter-avenger.json"
+
+[[links]]
+source = "opencode/tui.json"
+target = "~/.config/opencode/tui.json"
+
+# ─── Profiles ───────────────────────────────────────────────────────────────
+# Optional device-specific overrides. Selected via --profile or auto-matched
+# by hostname. Uncomment and adapt as needed.
+#
+# [[profiles]]
+# name = "mac-mini"
+# match_host = "kobayakawayuus-mac-mini"
+# extra_links = [
+#   { source = "pi", target = "~/.pi" },
+# ]
+
+# ─── Secrets ────────────────────────────────────────────────────────────────
+# On `valhalla secret inject`, each entry here is decrypted and written into
+# the file at `output` (as `set -gx VAR value` for fish).
+#
+# Example:
+#
+# [secrets]
+# output = "~/.config/fish/conf.d/00-secrets.fish"
+# [[secrets.inject]]
+# var = "OPENROUTER_API_KEY"
+# path = "llm/openrouter"

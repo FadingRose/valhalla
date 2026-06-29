@@ -7,6 +7,12 @@ node_modules/
 .lazy-lock.json
 fish/fish_variables
 fish/fish_variables.*
+
+# Go build artifacts
+/valhalla
+/valhalla.exe
+/dist/
+
 opencode/bun.lock
 opencode/package-lock.json
 opencode/package.json
