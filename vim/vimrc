@@ -31,6 +31,13 @@ set conceallevel=2               " hide * markup, keep substitutions
 set list                         " show invisible chars
 set listchars=tab:→\ ,trail:·,nbsp:␣,extends:›,precedes:‹
 set fillchars=eob:\              " tidy ~ at end-of-buffer
+
+" ─── Diff ──────────────────────────────────────────────────────────────────
+" Tuned for code review / merge conflict reading. All zero-dependency.
+" NOTE: Vim 9.1 silently drops algorithm:* / indent-heuristic on builds
+" without xdiff histogram support, so we don't set them (no error, just no-op).
+set diffopt=internal,filler,closeoff,context:6,inline:char
+set fillchars+=diff:╱             " nvim-parity fold-fill char
 if has('termguicolors')
   set termguicolors              " 24-bit colour (matches nvim)
 endif
@@ -113,6 +120,17 @@ nnoremap zq zb
 
 " Tab jumps to matching bracket (overrides default <C-i>)
 nnoremap <silent> <Tab> %
+
+" ─── Diff mode keys (zero-dependency) ──────────────────────────────────────
+" Toggle diff on current window (works on any split pair)
+nnoremap <silent> <leader>dt :diffthis<CR>
+nnoremap <silent> <leader>dT :diffoff<CR>
+" Obtain / put from the other side of a diff
+nnoremap <silent> <leader>do :diffget<CR>
+nnoremap <silent> <leader>dp :diffput<CR>
+" Jump between changed hunks
+nnoremap <silent> <leader>dn ]c
+nnoremap <silent> <leader>dN [c
 
 " Window resize with <Alt+Arrows>
 nnoremap <silent> <M-Left>  :vertical resize -2<CR>

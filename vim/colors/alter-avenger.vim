@@ -93,6 +93,13 @@ hi diffAdded      guifg=#D4C49A guibg=NONE     gui=NONE
 hi diffRemoved    guifg=#B85C5C guibg=NONE     gui=NONE
 hi diffChanged    guifg=#C9A87C guibg=NONE     gui=NONE
 
+" ─── Diff-mode highlight (vimdiff / :diffsplit) ────────────────────────────
+" Tuned to read clearly against the dark-purple bg without washing out.
+hi DiffAdd        guifg=#D4C49A guibg=#251E34 gui=NONE      " added line
+hi DiffChange     guifg=#C9A87C guibg=#201A2C gui=NONE      " changed line
+hi DiffDelete     guifg=#B85C5C guibg=#1B1525 gui=bold      " deleted line
+hi DiffText       guifg=#DDD2EC guibg=#3A2E4D gui=bold      " specific char change
+
 " ─── Syntax groups (port of hi group -> palette mapping) ───────────────────
 hi Comment        guifg=#5E5374 guibg=NONE     gui=italic
 hi Constant       guifg=#D4C49A guibg=NONE     gui=NONE
