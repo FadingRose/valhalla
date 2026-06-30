@@ -36,7 +36,8 @@ set fillchars=eob:\              " tidy ~ at end-of-buffer
 " Tuned for code review / merge conflict reading. All zero-dependency.
 " NOTE: Vim 9.1 silently drops algorithm:* / indent-heuristic on builds
 " without xdiff histogram support, so we don't set them (no error, just no-op).
-set diffopt=internal,filler,closeoff,context:6,inline:char
+" Also, 'internal' is the implicit default in 9.1 and rejects explicit set.
+set diffopt=filler,closeoff,context:6,inline:char
 set fillchars+=diff:╱             " nvim-parity fold-fill char
 if has('termguicolors')
   set termguicolors              " 24-bit colour (matches nvim)
