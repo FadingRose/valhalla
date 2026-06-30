@@ -8,6 +8,13 @@ node_modules/
 fish/fish_variables
 fish/fish_variables.*
 
+# Vim swap / backup / undo (shouldn't live inside the repo)
+*.swp
+*.swo
+*.swn
+*~
+.viminfo
+
 # Go build artifacts
 /valhalla
 /valhalla.exe
